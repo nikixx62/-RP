@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Театральск RP — Официальный портал</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #04060a;
+    color: #e2e8f0;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Навигация */
+  nav {
+    background: rgba(10, 14, 23, 0.95);
+    border-bottom: 2px solid #00d2ff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .logo span { color: #00d2ff; }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: #00d2ff;
+    text-shadow: 0 0 10px rgba(0,210,255,0.5);
+  }
+
+  /* Контейнер */
+  .container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Секции */
+  .section {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  .section.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Главная (Баннер) */
+  .hero-banner {
+    width: 100%;
+    height: 550px;
+    background: linear-gradient(rgba(5, 8, 15, 0.7), rgba(2, 4, 8, 0.85)), 
+                url('https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #00d2ff;
+    border-radius: 16px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(0, 210, 255, 0.3);
+  }
+  .top-badge {
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.6);
+    color: #fde047;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .server-title {
+    font-size: 64px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    text-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
+    margin-bottom: 10px;
+  }
+  .server-subtitle {
+    font-size: 18px;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .features-row {
+    display: flex;
+    gap: 20px;
+  }
+  .feature-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Карточки разделов и таблиц */
+  h2 {
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    color: #fff;
+    border-left: 5px solid #00d2ff;
+    padding-left: 15px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    background: rgba(13, 19, 31, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #00d2ff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  /* Таблицы */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(13, 19, 31, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    margin-bottom: 30px;
+  }
+  th, td {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 14px;
+  }
+  th {
+    background: rgba(0, 210, 255, 0.15);
+    color: #00d2ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+  }
+  tr:not(:last-child) td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  td { color: #cbd5e1; }
+  .badge-price {
+    background: rgba(234, 179, 8, 0.15);
+    color: #fde047;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+  /* Футер */
+  footer {
+    text-align: center;
+    padding: 25px;
+    background: rgba(10, 14, 23, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #64748b;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  footer span { color: #00d2ff; font-weight: bold; }
+
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero-banner { height: auto; padding: 30px 20px; }
+    .server-title { font-size: 40px; }
+    .features-row { flex-direction: column; gap: 10px; }
+    .nav-links { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Театральск <span>RP</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showSection('home')" class="active" id="nav-home">Главная</a></li>
+    <li><a onclick="showSection('jobs')" id="nav-jobs">Работы</a></li>
+    <li><a onclick="showSection('laws')" id="nav-laws">Законы (АК)</a></li>
+    <li><a onclick="showSection('cityhall')" id="nav-cityhall">Мэрия</a></li>
+    <li><a onclick="showSection('recruiting')" id="nav-recruiting">Набор</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  
+  <!-- ГЛАВНАЯ -->
+  <div id="home" class="section active">
+    <div class="hero-banner">
+      <div class="top-badge">⭐ ЛУЧШИЙ РОЛЕВОЙ ПРОЕКТ ГОДА ⭐</div>
+      <div>
+        <div class="server-title">ТЕАТРАЛЬСК RP</div>
+        <div class="server-subtitle">Твоя роль. Твоя история. Твой город.</div>
+      </div>
+      <div class="features-row">
+        <div class="feature-pill">🔥 Уникальная экономика</div>
+        <div class="feature-pill">⚖️ Строгий RP режим</div>
+        <div class="feature-pill">🎙️ Обязательный Voice</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- РАБОТЫ -->
+  <div id="jobs" class="section">
+    <h2>Структуры и работы</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">🏛️ Государственные структуры</div>
+        <div class="card-desc">
+          • <b>МВД</b> — Борьба с преступностью и патруль<br>
+          • <b>ГИБДД</b> — Оформление ДТП и безопасность на дорогах<br>
+          • <b>Медик</b> — Лечение граждан и пациентов<br>
+          • <b>Следователь</b> — Расследование происшествий<br>
+          • <b>Адвокат</b> — Защита интересов граждан<br>
+          • <b>Мэр</b> — Управление городом
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">👷 Гражданские и криминал</div>
+        <div class="card-desc">
+          • <b>Бармен / Банкир / Таксист</b> — Гражданские заработки<br>
+          • <b>Дворник / ЖКХ / Строитель</b> — Городские работы<br>
+          • <b>ОПГ 1 / ОПГ 2</b> — Криминальные структуры, ограбления и контроль районов<br><br>
+          ❗️ <i>Для гос. структур голосовой чат обязателен!</i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЗАКОНЫ -->
+  <div id="laws" class="section">
+    <h2>Административный кодекс (АК)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Статья</th>
+          <th>Нарушение / Описание</th>
+          <th>Штраф</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Ст. 5.1 АК</b></td>
+          <td>Оскорбление, унижение чести и достоинства</td>
+          <td><span class="badge-price">5 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 5.3 АК</b></td>
+          <td>Нецензурная лексика в общественном месте</td>
+          <td><span class="badge-price">2 500 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 5.5 АК</b></td>
+          <td>Крики, музыка в ночное время *(искл. места отдыха)*</td>
+          <td><span class="badge-price">1 500 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 5.6 АК</b></td>
+          <td>Мелкое хулиганство (приставание, порча имущества)</td>
+          <td><span class="badge-price">5 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 7.1 АК</b></td>
+          <td>Нанесение легких телесных повреждений</td>
+          <td><span class="badge-price">10 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 8.2 АК</b></td>
+          <td>Мошенничество *(возврат краденого + штраф)*</td>
+          <td><span class="badge-price">5 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 9.1 АК</b></td>
+          <td>Проникновение на закрытую / частную территорию</td>
+          <td><span class="badge-price">6 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 9.8 АК</b></td>
+          <td>Ложный вызов государственных сотрудников</td>
+          <td><span class="badge-price">5 000 ₽</span></td>
+        </tr>
+        <tr>
+          <td><b>Ст. 13.8 АК</b></td>
+          <td>Нахождение в городе без паспорта *(3 дня на оформление)*</td>
+          <td><span class="badge-price">3 500 ₽</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- МЭРИЯ -->
+  <div id="cityhall" class="section">
+    <h2>Услуги Мэрии</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">🪪 Оформление документов</div>
+        <div class="card-desc">
+          Для получения паспорта, водительских прав или лицензии на оружие вам нужно назвать сотруднику: ФИО, дату рождения и предоставить медицинскую справку.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Финансовые услуги</div>
+        <div class="card-desc">
+          В здании Мэрии вы можете оплатить налоги на имущество, узнать актуальные тарифы и обратиться в кабинет Мэра (Кабинет № 101).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- НАБОР -->
+  <div id="recruiting" class="section">
+    <h2>Вакансии и наборы</h2>
+    <div class="grid">
+      <div class="card" style="border-color: #f59e0b;">
+        <div class="card-title" style="color: #f59e0b;">⭐ Набор на Лидера МВД</div>
+        <div class="card-desc">
+          <b>Требования:</b> Актив в игре, войс-чат, знание законов (ДК, АК, УК), опыт, знание правил МВД.<br>
+          <i style="color: #cbd5e1; display: block; margin-top: 10px;">Подайте заявку на официальном портале!</i>
+        </div>
+      </div>
+      <div class="card" style="border-color: #eab308;">
+        <div class="card-title" style="color: #eab308;">🏛️ Набор кандидатов на Мэра</div>
+        <div class="card-desc">
+          <b>Требования:</b> Актив, войс-чат, знание работ и ЗП, опыт, знание правил, от 3 месяцев игры.<br>
+          <span style="color: #f87171; font-weight: bold; display: block; margin-top: 10px;">⏰ Набор закроется 25 октября!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div>© 2026 <span>Театральск RP</span>. Все права защищены.</div>
+</footer>
+
+<script>
+  function showSection(sectionId) {
+    // Скрыть все секции
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.classList.remove('active'));
+
+    // Убрать активный класс у кнопок
+    const navLinks = document.querySelectorAll('.nav-links a');
+    links = navLinks.forEach(link => link.classList.remove('active'));
+
+    // Показать нужную секцию
+    document.getElementById(sectionId).classList.add('active');
+    
+    // Подсветить кнопку
+    document.getElementById('nav-' + sectionId).classList.add('active');
+    
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
